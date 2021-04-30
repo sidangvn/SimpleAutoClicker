@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PYxyZSEn0ZbkABhWj5fU7yD4qbKO7/Qo6M9XDUH1yTVx083OLPHjPAXQhAhGWFZJVWhNddWojRLU2dyLesgZ0Q==",
+  "dgSpecHash": "SuBOwdY6jfiG1txo4e7018c/TAwr+7XNEBXJROBHfwNSyLL1lgzUdtyA3gWHBBeHxL+FMVkEltU/k3AjWEZu8A==",
   "success": true,
-  "projectFilePath": "S:\\AutoClick\\AutoClick.csproj",
+  "projectFilePath": "S:\\git\\SimpleAutoClicker\\AutoClick.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

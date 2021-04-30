@@ -29,13 +29,13 @@ namespace AutoClick
             InitializeComponent();
             btPause.Enabled = false;
             btStops.Enabled = false;
+            tbSec.Select();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
-        
+
         private void btStart_Click(object sender, EventArgs e)
         {
             tbSec.Enabled = false;
@@ -43,8 +43,10 @@ namespace AutoClick
             btPause.Enabled = true;
             btStops.Enabled = true;
             btStart.Enabled = false;
+            tbPause.Enabled = false;
+            tbStartAfter.Enabled = false;
+
             lbStartTime.Text = "Started at: " + DateTime.UtcNow.ToString();
-            this.Refresh();
             totalClickCount = 0;
             lbTotalClickCount.Text = totalClickCount.ToString();
             this.Refresh();
@@ -59,27 +61,45 @@ namespace AutoClick
             int timer = int.Parse(tbSec.Text) * 1000;
             int totalClick = int.Parse(tbTotal.Text);
 
+            System.Threading.Thread.Sleep(int.Parse(tbStartAfter.Text) * 1000);
+
             Task task = Task.Factory.StartNew(() =>
             {
                 for (int i = 0; i < totalClick; i++)
                 {
-                    if (!stopIt)
+                    string currentPos = Cursor.Position.ToString();
+                    System.Threading.Thread.Sleep(500);
+                    bool checkMove = false;
+
+                    while (currentPos != Cursor.Position.ToString())
                     {
-                        System.Threading.Thread.Sleep(timer);
-                        DoMouseClick();
-                        totalClickCount++;
-                        lbTotalClickCount.Text = totalClickCount.ToString() + " / " + totalClick.ToString();
-                        this.Refresh();
+                        System.Threading.Thread.Sleep(int.Parse(tbPause.Text) * 1000);
+                        currentPos = Cursor.Position.ToString();
+                        System.Threading.Thread.Sleep(500);
+                        checkMove = true;
                     }
-                    else
+
+                    if (!checkMove)
                     {
-                        lbTotalClickCount.Text = "0";
-                        this.Refresh();
-                        break;
+                        if (!stopIt)
+                        {
+                            System.Threading.Thread.Sleep(timer);
+                            DoMouseClick();
+                            totalClickCount++;
+                            lbTotalClickCount.Text = totalClickCount.ToString() + " / " + totalClick.ToString();
+                            this.Refresh();
+                        }
+                        else
+                        {
+                            lbTotalClickCount.Text = "0";
+                            this.Refresh();
+                            break;
+                        }
                     }
                 }
             });
 
+            stopIt = false;
             this.Refresh();
         }
 
@@ -111,7 +131,6 @@ namespace AutoClick
 
         private void btPause_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btStop_Click(object sender, EventArgs e)
@@ -132,11 +151,30 @@ namespace AutoClick
                 btStops.Enabled = false;
                 tbSec.Enabled = true;
                 tbTotal.Enabled = true;
+                tbPause.Enabled = true;
+                tbStartAfter.Enabled = true;
+
                 tbSec.Text = tbSec.Text.Remove(tbSec.Text.Length - (tbSec.Text.Length));
                 tbTotal.Text = tbTotal.Text.Remove(tbTotal.Text.Length - (tbTotal.Text.Length));
+                tbPause.Text = tbPause.Text.Remove(tbTotal.Text.Length - (tbTotal.Text.Length));
+                tbStartAfter.Text = tbStartAfter.Text.Remove(tbTotal.Text.Length - (tbTotal.Text.Length));
+
                 lbTotalClickCount.Text = "0";
                 this.Refresh();
             }
+        }
+
+        private void tbPause_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(tbTotal.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.", "OOPPP!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tbTotal.Text = tbTotal.Text.Remove(tbTotal.Text.Length - 1);
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
         }
     }
 }

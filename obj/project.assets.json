@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\AutoClick\\AutoClick.csproj",
+      "projectUniqueName": "S:\\git\\SimpleAutoClicker\\AutoClick.csproj",
       "projectName": "AutoClick",
-      "projectPath": "S:\\AutoClick\\AutoClick.csproj",
+      "projectPath": "S:\\git\\SimpleAutoClicker\\AutoClick.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "S:\\AutoClick\\obj\\",
+      "outputPath": "S:\\git\\SimpleAutoClicker\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
